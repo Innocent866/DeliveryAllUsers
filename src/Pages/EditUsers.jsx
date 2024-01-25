@@ -77,9 +77,9 @@ const EditUsers = () => {
       console.error(error);
     }
   };
-  const profile = async () => {
 
-    
+
+  const profile = async () => {
     try {
       const data = await axios(`https://swifdropp.onrender.com/api/v1/admin/${adminId}/picture`, {
         method: "PATCH",
@@ -87,13 +87,13 @@ const EditUsers = () => {
           "Content-Type": "application/json",
         }
       });
-  
-      // const response = await data.json();
       console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
+
+  
   const handleDelete =  async (e) =>{
     e.preventDefault()
     await axios.delete(`https://swifdropp.onrender.com/api/v1/admin/${adminId}/delete`)

@@ -6,8 +6,9 @@ import edit from "../assets/Edit (2).jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import DeleteModel from "./DeleteModel";
+import Search from "./component/Search";
 
-const AllUsers = () => {
+const AllUsers = (_id) => {
   const [data, setData] = useState([]);
   const token = localStorage.getItem("token");
   const [show, setShow] = useState(false);
@@ -52,7 +53,7 @@ const AllUsers = () => {
         </div>
 
         <div className="whitebg mb-5">
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between align-items-center mb-3">
             <div className="d-flex align-items-center gap-3 ">
               <p>Show</p>
               <select name="" id="" className="select">
@@ -69,10 +70,7 @@ const AllUsers = () => {
               </select>
               <p>entries</p>
             </div>
-            <div className=" d-none d-lg-block">
-              <label htmlFor="">Search:</label>
-              <input type="text" className="tablesearch" />
-            </div>
+            <Search/>
           </div>
           <div className="">
             <table className="tablediv">
@@ -99,7 +97,13 @@ const AllUsers = () => {
                     </td>
                     <td>
                       <h6>{username}</h6>
-                      <p>{address}</p>
+                     <div>
+                     {/* <p>{address.country}</p>
+                     <p>{address.state}</p>
+                     <p>{address.zipCode}</p>
+                     <p>{address.city}</p>
+                     <p>{address.street}</p> */}
+                     </div>
                     </td>
                     <td>{phoneNumber}</td>
                     <td>{email}</td>

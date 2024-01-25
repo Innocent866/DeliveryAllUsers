@@ -10,16 +10,21 @@ import { Link, useParams } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import axios from "axios";
 
-const SideNav = ({adminId}) => {
+const SideNav = ({}) => {
   const [ data, setData ] = useState([])
+  const [image, setImage] = useState('')
+  const [name, setName] = useState('')
+  // const {adminId} = useParams()
 
 
   const getData = async ()=>{
     try{
-    const data = await axios.get(`https://swifdropp.onrender.com/api/v1/admin/`)
+    const data = await axios.get(`https://swifdropp.onrender.com/api/v1/admin/${adminId}`)
     // const res = await data.json()
-    console.log(data.data.admins);
-    setData(data.data.admins)
+    console.log(data.data.admin);
+    setName(data.data.admin.firstname)
+    setImage(data.data.admin.image)
+    setData(data.data.admin)
     } catch (error) {
       console.log(error);
     }
@@ -34,45 +39,44 @@ const SideNav = ({adminId}) => {
       <div className="topsidediv">
         <div className="topsidehead">
           <div className="d-flex gap-2 align-items-center">
-            <img src={Editimg} alt="" className="topsideimg" />
+            <img src={image} alt="" className="topsideimg" />
             <h5>
-              Amelia <br />
-              Lopes
+              {name}
             </h5>
           </div>
           <h1>...</h1>
         </div>
         
-          <Link to={`/EditUsers/${data.firstname}`} className="link">
-          <p className="linkpara">Personal Information</p>
+          <Link to={`/EditUsers/${data._id}`} className="link">
+          <p className="py-1 rounded">Personal Information</p>
         </Link>
         
         <Link to={"/UsersChangePass"} className="link">
-          <p className="linkpara">
+          <p className="py-1 rounded">
             <img src={cp} alt="" className="imgw" />
             Change Password
           </p>
         </Link>
         <Link to="/AllusersEditAddress" className="link">
-          <p className="linkpara">
+          <p className="py-1 rounded">
             <img src={aa} alt="" className="imgw" />
             Additional Address
           </p>
         </Link>
         <Link to="/PayMethod" className="link">
-          <p className="linkpara">
+          <p className="py-1 rounded">
             <img src={pm} alt="" className="imgw" />
             Payment Method
           </p>
         </Link>
         <Link to="#" className="link">
-          <p className="linkpara">
+          <p className="py-1 rounded">
             <img src={ich} alt="" className="imgw" />
             Invite Code History (Share and Earn)
           </p>
         </Link>
         <Link to="/OrderHistory" className="link">
-          <p className="linkpara ">
+          <p className="py-1 rounded ">
             <img src={oh} alt="" className="imgw" />
             Order History
           </p>
@@ -92,13 +96,13 @@ const SideNav = ({adminId}) => {
         <div className="d-flex justify-content-between px-4 text-center">
           <div>
             <p>
-              <span className="d-block text-success text">17</span>
+              <span className="d-block text-success fw-bold">17</span>
               Success Order
             </p>
           </div>
           <div>
             <p>
-              <span className="d-block text-danger text ">$1,125.38</span>
+              <span className="d-block text-danger fw-bold ">$1,125.38</span>
               Total Paid
             </p>
           </div>

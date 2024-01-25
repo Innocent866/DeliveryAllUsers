@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SideNav from './SideNav'
 import '../Style/AddAddress.css'
+import axios from 'axios'
 
 
 const AddAddress = () => {
+
+  const location = {
+    address:"address",
+    country:"country",
+    state:"state",
+    city:"city",
+    code:"code"
+  }
+
+  const token = localStorage.getItem('token')
+  const [code, setCode] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
+  const [country, setCountry] = useState('')
+  const [address, setAddress] = useState('')
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault()
+    try {
+      const data = await axios('https://swifdropp.onrender.com/api/v1/location/',{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(location)
+      })
+    console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+
+
   return (
     <>
     <div className='container'>
@@ -15,17 +51,17 @@ const AddAddress = () => {
           <h4 >Add / Edit Address</h4>
           <hr />
           <label htmlFor="">Postal Zip Code</label>
-          <input type="text" className='input'/>
+          <input value={code} onChange={(e)=>setCode(e.target.value)} type="text" className='input'/>
           <label htmlFor="">City</label>
-          <input type="text" className='input'/>
+          <input value={city} onChange={(e)=>setCity(e.target.value)} type="text" className='input'/>
           <label htmlFor="">State</label>
-          <input type="text" className='input'/>
+          <input value={state} onChange={(e)=>setState(e.target.value)} type="text" className='input'/>
           <label htmlFor="">Country</label>
-          <input type="text" className='input'/>
+          <input value={country} onChange={(e)=>setCountry(e.target.value)} type="text" className='input'/>
           <label htmlFor="">Address</label>
-          <textarea className='w-100'></textarea>
+          <textarea className='w-100'  onChange={(e)=>setAddress(e.target.value)}></textarea>
           <div className='btndi'>
-          <button className='button'>SAVE</button>
+          <button onClick={handleSubmit} className='button'>SAVE</button>
           </div>
           </div>
           </div>
